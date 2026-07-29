@@ -6,7 +6,9 @@
 
 **v2.0 — Enterprise Security Suite**
 
+[![Live Demo](https://img.shields.io/badge/🌐%20Live%20Demo-GitHub%20Pages-6366f1?style=for-the-badge)](https://rishisharma029.github.io/careergraph-ai/)
 [![Build](https://img.shields.io/badge/build-passing-22c55e?style=for-the-badge&logo=github-actions)](https://github.com/Rishisharma029/careergraph-ai/actions)
+[![Deploy](https://img.shields.io/github/deployments/Rishisharma029/careergraph-ai/github-pages?style=for-the-badge&label=Pages&logo=github)](https://rishisharma029.github.io/careergraph-ai/)
 [![Version](https://img.shields.io/badge/version-2.0.0-6366f1?style=for-the-badge)](https://github.com/Rishisharma029/careergraph-ai/releases)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18-61dafb?style=for-the-badge&logo=react)](https://react.dev/)
@@ -17,7 +19,7 @@
 > **CareerGraph AI** transforms your resume, certificates, and projects into a living knowledge graph.  
 > Ask anything about your career. Get answers backed by evidence. Export AI-powered resumes.
 
-[**Live Demo**](https://github.com/Rishisharma029/careergraph-ai) · [**Security Policy**](./SECURITY.md) · [**Threat Model**](./THREAT_MODEL.md) · [**Changelog**](#-changelog)
+[**🌐 Live Demo →**](https://rishisharma029.github.io/careergraph-ai/) · [**Security Policy**](./SECURITY.md) · [**Threat Model**](./THREAT_MODEL.md) · [**Changelog**](#-changelog)
 
 </div>
 
@@ -353,6 +355,12 @@ node >= 18.0.0
 npm >= 9.0.0
 git
 ```
+
+### 🌐 Live Demo
+
+> **Try it now — no setup required:**
+> ## [https://rishisharma029.github.io/careergraph-ai/](https://rishisharma029.github.io/careergraph-ai/)
+> Deployed automatically via GitHub Actions on every push to `main`.
 
 ### Installation
 
