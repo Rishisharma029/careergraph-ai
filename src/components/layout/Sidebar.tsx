@@ -12,9 +12,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Sparkles,
-  Zap
+  Zap,
+  Building2,
+  ShieldCheck
 } from 'lucide-react';
 import { useCareerStore } from '../../store/useCareerStore';
+import { useSecurityStore } from '../../store/useSecurityStore';
 
 interface SidebarProps {
   currentRoute: string;
@@ -24,6 +27,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { artifacts, nodes, recruiterViewActive } = useCareerStore();
+  const { securityScore } = useSecurityStore();
 
   const navItems = [
     { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
@@ -34,6 +38,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate }) =>
     { id: 'search', label: 'AI Search & Q&A', icon: MessageSquareCode, badge: 'RAG' },
     { id: 'analytics', label: 'Skill Analytics', icon: LineChart },
     { id: 'profile', label: 'Portfolio Exporter', icon: UserCheck, badge: '1-Click' },
+    { id: 'recruiter-portal', label: 'Recruiter Portal', icon: Building2, badge: 'PRO' },
+    { id: 'security', label: 'Security Center', icon: ShieldCheck, badge: `${securityScore}/100` },
     { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
@@ -61,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate }) =>
                   CareerGraph AI
                 </div>
                 <div className="text-[10px] text-slate-400 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-purple-400 inline" /> Intelligence Hub
+                  <Sparkles className="w-3 h-3 text-purple-400 inline" /> SOC2 Secure Suite
                 </div>
               </div>
             )}
@@ -136,11 +142,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate }) =>
       {!collapsed && (
         <div className="p-3 m-3 rounded-xl bg-white/5 border border-white/10">
           <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
-            <span>Knowledge Graph</span>
-            <span className="text-emerald-400 font-semibold">100% Synced</span>
+            <span>Security Engine</span>
+            <span className="text-emerald-400 font-semibold">AES-256 Active</span>
           </div>
           <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-            <div className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full w-full animate-pulse" />
+            <div className="bg-gradient-to-r from-emerald-500 to-cyan-400 h-full w-full animate-pulse" />
           </div>
         </div>
       )}

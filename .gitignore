@@ -1,31 +1,117 @@
-# Logs
-logs
-*.log
+# ──────────────────────────────────────
+# CareerGraph AI — .gitignore
+# ──────────────────────────────────────
+
+# ── Node ──
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.pnp
+.pnp.js
 
-# Node dependencies
-node_modules
-dist
-dist-ssr
+# ── Build Outputs ──
+dist/
+dist-ssr/
+build/
+out/
 *.local
 
-# Editor directories and files
+# ── Environment & Secrets ──
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+secrets/
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+*.jks
+
+# ── Docker / Compose Overrides ──
+docker-compose.override.yml
+docker-compose.local.yml
+.docker/
+
+# ── Editor ──
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+!.vscode/settings.json
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+.project
+.classpath
 
-# Temporary & Environment
-.env
-.env.local
-.env.*.local
+# ── OS ──
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Logs ──
+logs/
+*.log
+log/
+
+# ── Coverage & Test Artifacts ──
+coverage/
+.nyc_output/
+*.lcov
+.jest-cache/
+playwright-report/
+test-results/
+
+# ── Dependency Scan Reports ──
+reports/
+dependency-check-report.*
+trivy-results.*
+snyk-report.*
+gitleaks-report.*
+
+# ── Python (backend) ──
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+*.egg-info/
+.eggs/
+.mypy_cache/
+.ruff_cache/
+
+# ── Database & Storage ──
+*.db
+*.sqlite
+*.sqlite3
+pgdata/
+neo4j-data/
+qdrant-data/
+
+# ── Temp ──
 tmp/
+temp/
+.cache/
+.parcel-cache/
+.turbo/
+
+# ── Type Check Cache ──
+*.tsbuildinfo
+.eslintcache
+.stylelintcache

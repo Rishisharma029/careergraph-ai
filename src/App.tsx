@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 import { GlobalSearchModal } from './components/common/GlobalSearchModal';
+import { MasterclassSplash } from './components/common/MasterclassSplash';
 
 // Pages
 import { LandingPage } from './pages/Landing/Landing';
@@ -14,10 +15,13 @@ import { AISearchChat } from './pages/Search/Search';
 import { SkillAnalytics } from './pages/Analytics/Analytics';
 import { ProfileExporter } from './pages/Profile/Profile';
 import { SettingsPage } from './pages/Settings/Settings';
+import { RecruiterPortal } from './pages/RecruiterPortal/RecruiterPortal';
+import SecurityCenter from './pages/Security/Security';
 
 export const App: React.FC = () => {
   const [currentRoute, setCurrentRoute] = useState<string>('landing');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [showSplash, setShowSplash] = useState<boolean>(true);
 
   const handleNavigate = (route: string) => {
     const targetRoute = route === 'knowledge-graph' ? 'graph' : route;
@@ -52,11 +56,19 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentRoute]);
 
+  // Initial Splash Screen Sequence
+  if (showSplash && currentRoute !== 'landing') {
+    return <MasterclassSplash onComplete={() => setShowSplash(false)} />;
+  }
+
   // If on landing page, show un-shelled Landing view
   if (currentRoute === 'landing') {
     return (
       <>
-        <LandingPage onEnterApp={() => handleNavigate('home')} />
+        <LandingPage onEnterApp={() => {
+          setShowSplash(true);
+          handleNavigate('home');
+        }} />
         <GlobalSearchModal
           isOpen={isSearchOpen}
           onClose={() => setIsSearchOpen(false)}
@@ -92,23 +104,25 @@ export const App: React.FC = () => {
             {currentRoute === 'search' && <AISearchChat onNavigate={handleNavigate} />}
             {currentRoute === 'analytics' && <SkillAnalytics onNavigate={handleNavigate} />}
             {currentRoute === 'profile' && <ProfileExporter onNavigate={handleNavigate} />}
+            {currentRoute === 'recruiter-portal' && <RecruiterPortal onNavigate={handleNavigate} />}
+            {currentRoute === 'security' && <SecurityCenter onNavigate={handleNavigate} />}
             {currentRoute === 'settings' && <SettingsPage onNavigate={handleNavigate} />}
           </div>
 
-          {/* ⭐ SMALL FOOTER WITH RISHI SHARMA */}
+          {/* SMALL FOOTER WITH RISHI SHARMA */}
           <footer className="p-3 border-t border-white/10 text-center text-[11px] text-slate-400 font-mono flex flex-wrap items-center justify-between gap-2 px-6 bg-[#09090b]">
             <div className="flex items-center gap-1.5">
               <span>Crafted with ❤️ by</span>
               <span className="font-extrabold text-purple-400 tracking-wider">RISHI SHARMA</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] text-slate-400">
-              <span>CareerGraph AI v1.0.0</span>
+              <span>CareerGraph AI 1.0 Masterclass</span>
               <span>•</span>
-              <span>Microsoft TrOCR</span>
+              <span>SOC 2 Aligned Controls</span>
+              <span>•</span>
+              <span>FastAPI & Neo4j</span>
               <span>•</span>
               <span>React & TS</span>
-              <span>•</span>
-              <span>FastAPI</span>
             </div>
           </footer>
         </main>

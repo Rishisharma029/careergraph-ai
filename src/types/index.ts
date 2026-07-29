@@ -2,6 +2,22 @@ export type PersonaType = 'student' | 'jobseeker' | 'freelancer' | 'recruiter';
 
 export type ArtifactCategory = 'Resume' | 'Certificate' | 'Project Report' | 'Offer Letter' | 'GitHub Repo';
 
+export interface EvidenceRecord {
+  documentId: string;
+  documentTitle: string;
+  pageOrSection: string;
+  excerpt: string;
+  confidence: number;
+}
+
+export interface InferredSkill {
+  name: string;
+  category: string;
+  derivedFrom: string;
+  confidence: number;
+  reason: string;
+}
+
 export interface Artifact {
   id: string;
   title: string;
@@ -19,6 +35,7 @@ export interface Artifact {
   };
   verified: boolean;
   issuer?: string;
+  evidenceList?: EvidenceRecord[];
 }
 
 export type NodeType = 'root' | 'category_hub' | 'skill' | 'project' | 'certificate' | 'role' | 'education';
@@ -35,14 +52,18 @@ export interface GraphNode {
   iconName?: string;
   x: number;
   y: number;
+  z?: number; // 3D Canvas Coordinate
   parentId?: string;
   isExpanded?: boolean;
+  subNodes?: { id: string; label: string; category: string }[];
   connections: {
     targetId: string;
     relationship: 'built_with' | 'uses' | 'demonstrates' | 'verifies' | 'earned' | 'studied_at' | 'implements' | string;
   }[];
   documentRefIds: string[];
   description?: string;
+  evidenceList?: EvidenceRecord[];
+  inferredSkills?: InferredSkill[];
 }
 
 export interface GraphEdge {
@@ -75,11 +96,14 @@ export interface Citation {
   excerpt: string;
 }
 
+export type AgentType = 'general' | 'resume' | 'portfolio' | 'advisor' | 'interview' | 'learning' | 'twin';
+
 export interface ChatMessage {
   id: string;
-  sender: 'user' | 'ai';
+  sender: 'user' | 'ai' | 'twin';
   text: string;
   timestamp: string;
+  agentType?: AgentType;
   citations?: Citation[];
   suggestedFollowups?: string[];
   isStreaming?: boolean;
@@ -107,6 +131,32 @@ export interface TargetRole {
     missing: string[];
     recommendation: string;
   };
+}
+
+export interface JDMatchResult {
+  jobTitle: string;
+  companyName?: string;
+  overallMatchScore: number;
+  interviewProbability: number;
+  matchedSkills: string[];
+  missingCriticalSkills: string[];
+  inferredMatches: string[];
+  experienceFitScore: number;
+  recommendations: string[];
+}
+
+export interface SalaryForecast {
+  period: 'Current' | '6 Months' | '1 Year' | '3 Years';
+  estimatedSalaryRange: string;
+  marketReadinessIndex: number;
+  projectedSkillsCount: number;
+  keyUnlocks: string[];
+}
+
+export interface PersonalityAttribute {
+  trait: string;
+  score: number;
+  evidenceSummary: string;
 }
 
 export interface AISuggestion {
