@@ -119,57 +119,57 @@ Projects ────▶  Analyser   ──▶  Achievement Edges  ──▶  Co
 
 ```mermaid
 flowchart TD
-    A[📄 User Uploads Document] --> B{Extension Allowed?}
-    B -- No --> Z1[❌ Reject]
-    B -- Yes --> C{MIME Type Valid?}
-    C -- No --> Z2[❌ Reject]
-    C -- Yes --> D[Magic Byte Verification]
-    D --> E{Size ≤ 25 MB?}
-    E -- No --> Z3[❌ Reject]
-    E -- Yes --> F[SHA-256 Hash]
-    F --> G{Duplicate?}
-    G -- Yes --> Z4[⚡ Skip - Already Processed]
-    G -- No --> H[🦠 ClamAV Virus Scan]
-    H --> I{Threat Found?}
-    I -- Yes --> Z5[🚨 QUARANTINE]
-    I -- No --> J[Macro & Script Detection]
-    J --> K[PDF JavaScript Removal]
-    K --> L[Metadata Sanitization]
-    L --> M[🔍 PII Detection & Masking]
-    M --> N[🔥 Prompt Injection Scan]
-    N --> O{Injection Found?}
-    O -- Yes --> P[Neutralize + Log to Audit]
-    O -- No --> Q[OCR Sandbox Isolation]
+    A["📄 User Uploads Document"] --> B{"Extension Allowed?"}
+    B -- No --> Z1["❌ Reject"]
+    B -- Yes --> C{"MIME Type Valid?"}
+    C -- No --> Z2["❌ Reject"]
+    C -- Yes --> D["Magic Byte Verification"]
+    D --> E{"Size ≤ 25 MB?"}
+    E -- No --> Z3["❌ Reject"]
+    E -- Yes --> F["SHA-256 Hash"]
+    F --> G{"Duplicate?"}
+    G -- Yes --> Z4["⚡ Skip - Already Processed"]
+    G -- No --> H["🦠 ClamAV Virus Scan"]
+    H --> I{"Threat Found?"}
+    I -- Yes --> Z5["🚨 QUARANTINE"]
+    I -- No --> J["Macro & Script Detection"]
+    J --> K["PDF JavaScript Removal"]
+    K --> L["Metadata Sanitization"]
+    L --> M["🔍 PII Detection & Masking"]
+    M --> N["🔥 Prompt Injection Scan"]
+    N --> O{"Injection Found?"}
+    O -- Yes --> P["Neutralize + Log to Audit"]
+    O -- No --> Q["OCR Sandbox Isolation"]
     P --> Q
-    Q --> R[✅ AES-256 Encrypt → S3]
-    R --> S[Presidio PII Server-side]
-    S --> T[OpenAI Embeddings → Qdrant]
-    T --> U[Neo4j Knowledge Graph]
-    U --> V[🎉 Ready for AI Queries]
+    Q --> R["✅ AES-256 Encrypt → S3"]
+    R --> S["Presidio PII Server-side"]
+    S --> T["OpenAI Embeddings → Qdrant"]
+    T --> U["Neo4j Knowledge Graph"]
+    U --> V["🎉 Ready for AI Queries"]
 ```
 
 ### Knowledge Graph Data Model
 
 ```mermaid
 graph LR
-    P[👤 Person\nRishi Sharma] --> E1[🏢 Experience\nML Intern @ Company]
-    P --> E2[🏢 Experience\nBackend Dev @ Startup]
-    P --> PR1[🚀 Project\nCareerGraph AI]
-    P --> PR2[🚀 Project\nFastAPI Microservices]
-    P --> C1[🏅 Certificate\nAWS Cloud Practitioner]
-    P --> C2[🏅 Certificate\nTensorFlow Developer]
-    P --> A1[🏆 Achievement\nHackathon Winner]
+    P["👤 Person<br/>Rishi Sharma"] --> E1["🏢 Experience<br/>ML Intern @ Company"]
+    P --> E2["🏢 Experience<br/>Backend Dev @ Startup"]
+    P --> PR1["🚀 Project<br/>CareerGraph AI"]
+    P --> PR2["🚀 Project<br/>FastAPI Microservices"]
+    P --> C1["🏅 Certificate<br/>AWS Cloud Practitioner"]
+    P --> C2["🏅 Certificate<br/>TensorFlow Developer"]
+    P --> A1["🏆 Achievement<br/>Hackathon Winner"]
 
-    E1 --> S1[💡 Skill: Python]
-    E1 --> S2[💡 Skill: PyTorch]
-    E2 --> S3[💡 Skill: FastAPI]
-    E2 --> S4[💡 Skill: PostgreSQL]
-    PR1 --> S5[💡 Skill: Neo4j]
-    PR1 --> S6[💡 Skill: React]
-    C1 --> S7[💡 Skill: AWS]
+    E1 --> S1["💡 Skill: Python"]
+    E1 --> S2["💡 Skill: PyTorch"]
+    E2 --> S3["💡 Skill: FastAPI"]
+    E2 --> S4["💡 Skill: PostgreSQL"]
+    PR1 --> S5["💡 Skill: Neo4j"]
+    PR1 --> S6["💡 Skill: React"]
+    C1 --> S7["💡 Skill: AWS"]
 
-    S1 --> IN[🔮 AI Inferred\nMLOps]
-    S3 --> IN2[🔮 AI Inferred\nREST API Design]
+    S1 --> IN["🔮 AI Inferred<br/>MLOps"]
+    S3 --> IN2["🔮 AI Inferred<br/>REST API Design"]
 ```
 
 ### AI Search & RAG Flow
@@ -190,7 +190,7 @@ sequenceDiagram
     FE->>API: POST /api/v1/ai/search
     API->>Q: Semantic search (top-5 chunks, user namespace)
     Q-->>API: Retrieved: Resume p.2, Project README, Internship Letter
-    API->>AI: [System: data-only context]\n[Evidence chunks]\n[User query]
+    API->>AI: Send query + retrieved evidence context
     AI-->>API: "You worked on 3 ML projects: CareerGraph AI, ..."
     API->>AUD: Log: AI_SEARCH_QUERY | SUCCESS | sess-8f2a
     API-->>FE: Response + Evidence citations
@@ -206,52 +206,52 @@ sequenceDiagram
 ```mermaid
 graph TD
     subgraph Layer1["🔐 Layer 1 — Identity & Access"]
-        L1A[JWT RS256 Tokens\n15 min TTL]
-        L1B[MFA TOTP\nAuthentication]
-        L1C[RBAC\n4 Roles]
-        L1D[Session Revocation\nPer-device]
+        L1A["JWT RS256 Tokens<br/>15 min TTL"]
+        L1B["MFA TOTP<br/>Authentication"]
+        L1C["RBAC<br/>4 Roles"]
+        L1D["Session Revocation<br/>Per-device"]
     end
 
     subgraph Layer2["🔒 Layer 2 — Data & Encryption"]
-        L2A[AES-256-GCM\nAt Rest]
-        L2B[TLS 1.3\nIn Transit]
-        L2C[Signed URLs\n5 min expiry]
-        L2D[PII Masking\n6 Identifier Types]
+        L2A["AES-256-GCM<br/>At Rest"]
+        L2B["TLS 1.3<br/>In Transit"]
+        L2C["Signed URLs<br/>5 min expiry"]
+        L2D["PII Masking<br/>6 Identifier Types"]
     end
 
     subgraph Layer3["📄 Layer 3 — Document Security"]
-        L3A[13-Step\nThreat Pipeline]
-        L3B[ClamAV\nVirus Scan]
-        L3C[Quarantine\nPath]
-        L3D[SHA-256\nIntegrity Check]
+        L3A["13-Step<br/>Threat Pipeline"]
+        L3B["ClamAV<br/>Virus Scan"]
+        L3C["Quarantine<br/>Path"]
+        L3D["SHA-256<br/>Integrity Check"]
     end
 
     subgraph Layer4["🤖 Layer 4 — AI Security"]
-        L4A[Prompt Injection\nFirewall]
-        L4B[RAG Evidence\nGrounding]
-        L4C[Tenant\nIsolation]
-        L4D[Confidence\nThreshold Gate]
+        L4A["Prompt Injection<br/>Firewall"]
+        L4B["RAG Evidence<br/>Grounding"]
+        L4C["Tenant<br/>Isolation"]
+        L4D["Confidence<br/>Threshold Gate"]
     end
 
     subgraph Layer5["🌐 Layer 5 — API & Infrastructure"]
-        L5A[Rate Limiting\n100 req/min]
-        L5B[Security Headers\nCSP + HSTS]
-        L5C[CORS\nWhitelist]
-        L5D[Input\nValidation]
+        L5A["Rate Limiting<br/>100 req/min"]
+        L5B["Security Headers<br/>CSP + HSTS"]
+        L5C["CORS<br/>Whitelist"]
+        L5D["Input<br/>Validation"]
     end
 
     subgraph Layer6["👁️ Layer 6 — Observability"]
-        L6A[Structured Audit\nLogs 16 Fields]
-        L6B[Risk Alert\nEngine]
-        L6C[WORM\nLog Storage]
-        L6D[Security\nTimeline]
+        L6A["Structured Audit<br/>Logs 16 Fields"]
+        L6B["Risk Alert<br/>Engine"]
+        L6C["WORM<br/>Log Storage"]
+        L6D["Security<br/>Timeline"]
     end
 
     subgraph Layer7["🏛️ Layer 7 — Privacy & Compliance"]
-        L7A[GDPR\nRight to Erasure]
-        L7B[Consent\nManagement]
-        L7C[SOC 2 Aligned\nControls]
-        L7D[DPDP Act 2023\nIndia]
+        L7A["GDPR<br/>Right to Erasure"]
+        L7B["Consent<br/>Management"]
+        L7C["SOC 2 Aligned<br/>Controls"]
+        L7D["DPDP Act 2023<br/>India"]
     end
 
     Layer1 --> Layer2 --> Layer3 --> Layer4 --> Layer5 --> Layer6 --> Layer7
@@ -275,14 +275,14 @@ pie title Security Score Breakdown (Max 100)
 
 ```mermaid
 flowchart LR
-    D[📄 Document Text\nExtracted via OCR] --> S[🔍 Pattern Scanner\n16 Signatures]
-    S --> C{Injection\nDetected?}
-    C -- Yes --> B[Neutralize:\nReplace with\n[CONTENT_FILTERED]]
-    C -- Yes --> L[📋 Log to Audit Trail\nAI_PROMPT_INJECTION_BLOCKED]
-    C -- Yes --> A[🚨 Risk Alert\nto Security Center]
-    B --> W[Wrap in DATA Context Boundary]
+    D["📄 Document Text<br/>Extracted via OCR"] --> S["🔍 Pattern Scanner<br/>16 Signatures"]
+    S --> C{"Injection<br/>Detected?"}
+    C -- Yes --> B["Neutralize:<br/>Replace with<br/>CONTENT_FILTERED"]
+    C -- Yes --> L["📋 Log to Audit Trail<br/>AI_PROMPT_INJECTION_BLOCKED"]
+    C -- Yes --> A["🚨 Risk Alert<br/>to Security Center"]
+    B --> W["Wrap in DATA Context Boundary"]
     C -- No --> W
-    W --> AI[🤖 LLM Inference\nData-only context]
+    W --> AI["🤖 LLM Inference<br/>Data-only context"]
 ```
 
 ### Session Management Flow
